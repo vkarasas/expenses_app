@@ -18,10 +18,11 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public void saveCategory(CategoryDTO categoryDTO) {
+    public Category saveCategory(CategoryDTO categoryDTO) {
         Category category = toEntity(categoryDTO);
 
         categoryRepository.save(category);
+        return category;
     }
 
     private Category toEntity(CategoryDTO categoryDTO) {
@@ -49,6 +50,15 @@ public class CategoryServiceImpl implements CategoryService {
             categoryDTOS.add(toDto(category));
         }
         return categoryDTOS;
+    }
+
+    @Override
+    public void deleteCategory(Long id) {
+        if(id == null) return;
+
+        Category category = categoryRepository.getReferenceById(id);
+
+        categoryRepository.delete(category);
     }
 
 }

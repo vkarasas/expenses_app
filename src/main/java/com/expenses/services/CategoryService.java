@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface CategoryService {
 
-    void saveCategory(CategoryDTO categoryDTO);
+    Category saveCategory(CategoryDTO categoryDTO);
 
     CategoryDTO toDto(Category category);
 
     List<CategoryDTO> getCategories();
+
+    void deleteCategory(Long id);
 }

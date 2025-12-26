@@ -1,14 +1,13 @@
 package com.expenses.contollers;
 
 import com.expenses.dto.CategoryDTO;
+import com.expenses.entities.Category;
 import com.expenses.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/categories")
@@ -24,10 +23,29 @@ public class CategoryController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute CategoryDTO categoryDTO) {
-        categoryService.saveCategory(categoryDTO);
+    public String save(@ModelAttribute CategoryDTO categoryDTO, RedirectAttributes redirectAttributes) {
+        Category category = categoryService.saveCategory(categoryDTO);
+
+        if(category != null) {
+            redirectAttributes.addFlashAttribute(
+                    "successMessage",
+                    "Category saved successfully!"
+            );
+        }
 
         return "redirect:/categories?success";
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam Long id, RedirectAttributes redirectAttributes) {
+        categoryService.deleteCategory(id);
+
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Category has been deleted successfully!"
+                );
+
+        return "redirect:/categories";
     }
 
 }
