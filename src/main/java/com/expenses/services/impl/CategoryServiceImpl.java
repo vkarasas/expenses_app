@@ -43,6 +43,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category getById(Long id) {
+        if(id == null) return null;
+
+        return categoryRepository.getReferenceById(id);
+    }
+
+    @Override
     public List<CategoryDTO> getCategories() {
         List<Category> categoryList = categoryRepository.findAll();
         List<CategoryDTO> categoryDTOS = new ArrayList<>();

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/categories")
+@RequestMapping(value = "/categories")
 public class CategoryController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class CategoryController {
         return "pages/categories";
     }
 
-    @PostMapping("/save")
+    @PostMapping(value = "/save")
     public String save(@ModelAttribute CategoryDTO categoryDTO, RedirectAttributes redirectAttributes) {
         Category category = categoryService.saveCategory(categoryDTO);
 
@@ -36,7 +36,7 @@ public class CategoryController {
         return "redirect:/categories?success";
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete")
     public String delete(@RequestParam Long id, RedirectAttributes redirectAttributes) {
         categoryService.deleteCategory(id);
 

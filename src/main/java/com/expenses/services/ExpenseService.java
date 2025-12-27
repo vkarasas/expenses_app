@@ -1,0 +1,15 @@
+package com.expenses.services;
+
+import com.expenses.dto.ExpenseDTO;
+import com.expenses.entities.Expense;
+
+import java.util.List;
+
+public interface ExpenseService {
+
+    Expense saveExpense(ExpenseDTO expenseDTO);
+
+    ExpenseDTO toDTO(Expense expense);
+
+    List<ExpenseDTO> getExpenses();
+}

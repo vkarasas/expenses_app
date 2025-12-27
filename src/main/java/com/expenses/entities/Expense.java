@@ -1,0 +1,104 @@
+package com.expenses.entities;
+
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+@Entity
+@Table(name = "expense")
+public class Expense {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    @Column(name = "date")
+    private Date date;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "quantity")
+    private BigDecimal quantity;
+
+    @Column(name = "amount")
+    private BigDecimal amount;
+
+    @Column(name = "total_amount")
+    private BigDecimal totalAmount;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "id=" + id +
+                ", category=" + category +
+                ", date=" + date +
+                ", description='" + description + '\'' +
+                ", quantity=" + quantity +
+                ", amount=" + amount +
+                ", totalAmount=" + totalAmount +
+                '}';
+    }
+}
