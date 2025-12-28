@@ -2,6 +2,7 @@ package com.expenses.contollers;
 
 import com.expenses.dto.ExpenseDTO;
 import com.expenses.entities.Expense;
+import com.expenses.services.CategoryService;
 import com.expenses.services.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class ExpenseController {
 
     @Autowired
     private ExpenseService expenseService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping
     public String getExpenses(Model model) {
@@ -41,7 +45,8 @@ public class ExpenseController {
     }
 
     @GetMapping("/new")
-    public String newExpense() {
+    public String newExpense(Model model) {
+        model.addAttribute("categories", categoryService.getCategories());
         return "pages/expense-new";
     }
 }

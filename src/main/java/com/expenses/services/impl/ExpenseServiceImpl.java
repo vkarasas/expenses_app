@@ -33,7 +33,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
         BeanUtils.copyProperties(expenseDTO, expense);
 
-        expense.setCategory(categoryService.getById(expenseDTO.id()));
+        expense.setCategory(categoryService.getById(expenseDTO.categoryId()));
 
         return expense;
     }

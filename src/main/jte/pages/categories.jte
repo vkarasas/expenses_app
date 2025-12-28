@@ -76,13 +76,13 @@
         </div>
 
     </div>
-<script>
-    function removeAlert() {
-        const alert = document.getElementById("successAlert");
-        if (alert) alert.remove();
-    }
+    <script>
+        function removeAlert() {
+            const alert = document.getElementById("successAlert");
+            if (alert) alert.remove();
+        }
 
-    // Auto-remove after 10 seconds
-    setTimeout(removeAlert, 10000);
-</script>
+        // Auto-remove after 10 seconds
+        setTimeout(removeAlert, 10000);
+    </script>
 `)
