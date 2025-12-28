@@ -39,4 +39,9 @@ public class ExpenseController {
 
         return "redirect:/expenses?success";
     }
+
+    @GetMapping("/new")
+    public String newExpense() {
+        return "pages/expense-new";
+    }
 }
