@@ -60,6 +60,7 @@
                 <input
                         id="quantityInput"
                         type="number"
+                        oninput="onInput()"
                         name="quantity"
                         step="1"
                         required
@@ -74,6 +75,7 @@
                 <input
                         id="amountInput"
                         type="number"
+                        oninput="onInput()"
                         name="amount"
                         step="0.01"
                         required
@@ -114,4 +116,18 @@
         </form>
 
     </div>
+    <script>
+        function onInput() {
+            let quantity = 0
+            let amount = 0;
+            let totalAmount = 0;
+
+            quantity = document.getElementById("quantityInput").value;
+            amount = document.getElementById("amountInput").value;
+
+            totalAmount = quantity * amount;
+
+            document.getElementById("totalAmountInput").value = totalAmount;
+        }
+    </script>
 `)

@@ -49,7 +49,7 @@
                         <td class="px-4 py-2 border text-center">${expenses.get(i).categoryDescription()}</td>
                         <td class="px-4 py-2 border text-center">${expenses.get(i).description()}</td>
                         <td class="px-4 py-2 border text-center">${expenses.get(i).date().toString()}</td>
-                        <td class="px-4 py-2 border text-right">${expenses.get(i).totalAmount()}</td>
+                        <td class="px-4 py-2 border text-right">${expenses.get(i).totalAmount().setScale(2, java.math.RoundingMode.HALF_UP)} €</td>
                     </tr>
                 @endfor
                 </tbody>
