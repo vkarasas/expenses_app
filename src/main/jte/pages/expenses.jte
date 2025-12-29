@@ -28,28 +28,39 @@
                     class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">New Expense</button>
         </div>
 
-        <!-- Categories Table -->
+        <!-- Expenses Table -->
         <div class="overflow-x-auto">
             <table class="min-w-full border border-gray-200 rounded-lg">
                 <thead class="bg-gray-100">
                 <tr>
                     <th class="px-4 py-2 border text-left w-12">#</th>
-                    <th class="px-4 py-2 border text-center w-24">Action</th>
                     <th class="px-4 py-2 border text-center">Category</th>
                     <th class="px-4 py-2 border text-center">Description</th>
                     <th class="px-4 py-2 border text-center">Date</th>
                     <th class="px-4 py-2 border text-center">Total Amount</th>
+                    <th class="px-4 py-2 border text-center w-24">Action</th>
                 </tr>
                 </thead>
                 <tbody id="categoryTableBody">
                 @for (int i = 0; i < expenses.size(); i++)
                     <tr class="hover:bg-gray-50">
                         <td class="px-4 py-2 border text-center">${i + 1}</td> <!-- Row number -->
-                        <td class="px-4 py-2 border text-center"></td>
                         <td class="px-4 py-2 border text-center">${expenses.get(i).categoryDescription()}</td>
                         <td class="px-4 py-2 border text-center">${expenses.get(i).description()}</td>
                         <td class="px-4 py-2 border text-center">${expenses.get(i).date().toString()}</td>
                         <td class="px-4 py-2 border text-right">${expenses.get(i).totalAmount().setScale(2, java.math.RoundingMode.HALF_UP)} €</td>
+                        <td class="px-4 py-2 border text-center">
+                            <form
+                                    method="post"
+                                    action="/expenses/delete"
+                                    onsubmit="return confirm('Delete this expense?')"
+                            >
+                                <input type="hidden" name="id" value="${expenses.get(i).id()}" />
+                                <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @endfor
                 </tbody>

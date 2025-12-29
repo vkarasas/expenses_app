@@ -91,6 +91,7 @@
                         id="totalAmountInput"
                         type="number"
                         name="totalAmount"
+                        step="0.01"
                         required
                         class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -100,15 +101,9 @@
 
             <!-- Actions -->
             <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">
-<%--                <button--%>
-<%--                        type="button"--%>
-<%--                        class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"--%>
-<%--                >--%>
-<%--                    Cancel--%>
-<%--                </button>--%>
                 <button
                         type="submit"
-                        class="px-4 py-2 text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+                        class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
                 >
                     Save
                 </button>

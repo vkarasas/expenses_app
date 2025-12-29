@@ -62,4 +62,22 @@ public class ExpenseServiceImpl implements ExpenseService {
 
         return expenseDTOList;
     }
+
+    @Override
+    public Expense getById(Long id) {
+        if(id == null) return null;
+
+        return expenseRepository.getReferenceById(id);
+    }
+
+    @Override
+    public void deleteExpense(Long id) {
+        if(id == null) return;
+
+        Expense expense = getById(id);
+
+        if(expense == null) return;
+
+        expenseRepository.delete(expense);
+    }
 }

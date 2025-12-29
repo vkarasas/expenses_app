@@ -12,4 +12,8 @@ public interface ExpenseService {
     ExpenseDTO toDTO(Expense expense);
 
     List<ExpenseDTO> getExpenses();
+
+    Expense getById(Long id);
+
+    void deleteExpense(Long id);
 }
