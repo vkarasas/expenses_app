@@ -23,8 +23,8 @@
                     <option value="">Select category</option>
 
                     @for (com.expenses.dto.CategoryDTO category : categories)
-                        <option value="${category.getId()}">
-                            ${category.getDescription()}
+                        <option value="${category.id()}">
+                            ${category.description()}
                         </option>
                     @endfor
                 </select>

@@ -35,11 +35,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO toDto(Category category) {
-        CategoryDTO dto = new CategoryDTO();
-
-        BeanUtils.copyProperties(category, dto);
-
-        return dto;
+        return new CategoryDTO(
+                category.getId(),
+                category.getDescription()
+        );
     }
 
     @Override

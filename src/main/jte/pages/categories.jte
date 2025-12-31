@@ -56,14 +56,14 @@
                 @for (int i = 0; i < categories.size(); i++)
                     <tr class="hover:bg-gray-50">
                         <td class="px-4 py-2 border text-center">${i + 1}</td> <!-- Row number -->
-                        <td class="px-4 py-2 border">${categories.get(i).getDescription()}</td>
+                        <td class="px-4 py-2 border">${categories.get(i).description()}</td>
                         <td class="px-4 py-2 border text-center">
                             <form
                                     method="post"
                                     action="/categories/delete"
                                     onsubmit="return confirm('Delete this category?')"
                             >
-                                <input type="hidden" name="id" value="${categories.get(i).getId()}" />
+                                <input type="hidden" name="id" value="${categories.get(i).id()}" />
                                 <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
                                     Delete
                                 </button>
