@@ -2,9 +2,15 @@
 @param String successMessage
 
 @template.layout.index(content = @`
-    <div class="max-w-3xl mx-auto p-6">
+    <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-md border border-gray-200">
 
-        <h1 class="text-2xl font-semibold mb-6">Categories</h1>
+        <!-- Panel Header -->
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-800">
+                New Category
+            </h2>
+        </div>
+
         <!-- Success Message -->
         @if(successMessage != null)
             <div
@@ -23,66 +29,72 @@
                 </button>
             </div>
         @endif
+
         <!-- Add Category Form -->
-        <form method="post" action="/categories/save" onsubmit="save" class="flex gap-3 mb-6">
-            <input
-                    id="descriptionInput"
-                    type="text"
-                    name="description"
-                    required
-                    placeholder="New category"
-                    class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
-            />
+        <form method="post" action="/categories/save" onsubmit="save" class="p-6 space-y-5">
+            <!-- Description -->
+            <div class="grid grid-cols-4 sm:grid-cols-4 items-center gap-4">
+                <label class="text-sm font-medium text-gray-700">Description</label>
+                <input
+                        id="descriptionInput"
+                        type="text"
+                        name="description"
+                        required
+                        class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
+               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+                <button type="submit"
+                        class="bg-green-600 text-white px-2 py-2 text-sm rounded hover:bg-green-700 w-fit"
+                >
+                    Save
+                </button>
+            </div>
 
-            <button
-                    type="submit"
-                    class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-            >
-                Save
-            </button>
         </form>
+    </div>
 
-        <!-- Categories Table -->
-        <div class="overflow-x-auto">
-            <table class="min-w-full border border-gray-200 rounded-lg">
-                <thead class="bg-gray-100">
-                <tr>
-                    <th class="px-4 py-2 border text-left w-12">#</th>
-                    <th class="px-4 py-2 border text-left">Description</th>
-                    <th class="px-4 py-2 border text-center w-24">Action</th>
-                </tr>
-                </thead>
-                <tbody id="categoryTableBody">
-                @for (int i = 0; i < categories.size(); i++)
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-2 border text-center">${i + 1}</td> <!-- Row number -->
-                        <td class="px-4 py-2 border">${categories.get(i).description()}</td>
-                        <td class="px-4 py-2 border text-center">
-                            <form
-                                    method="post"
-                                    action="/categories/delete"
-                                    onsubmit="return confirm('Delete this category?')"
-                            >
-                                <input type="hidden" name="id" value="${categories.get(i).id()}" />
-                                <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endfor
-                </tbody>
-            </table>
+    <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-md border border-gray-200 mt-6">
+        <!-- Panel Header -->
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-800">
+                Categories
+            </h2>
         </div>
 
+        <!-- Categories Table -->
+        <div class="flex justify-center mt-3 mb-4">
+            <!-- Scroll + Border wrapper -->
+            <div class="max-h-[500px] overflow-y-auto w-11/12 border-2 border-gray-300 rounded-lg">
+                <table class="w-full border-collapse">
+                    <thead class="bg-gray-100 sticky top-0 z-10">
+                    <tr>
+                        <th class="px-4 py-2 border text-left w-12">#</th>
+                        <th class="px-4 py-2 border text-left">Description</th>
+                        <th class="px-4 py-2 border text-center w-24">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="categoryTableBody">
+                    @for (int i = 0; i < categories.size(); i++)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 border text-center">${i + 1}</td>
+                            <td class="px-4 py-2 border">${categories.get(i).description()}</td>
+                            <td class="px-4 py-2 border text-center">
+                                <form
+                                        method="post"
+                                        action="/categories/delete"
+                                        onsubmit="return confirm('Delete this category?')"
+                                >
+                                    <input type="hidden" name="id" value="${categories.get(i).id()}" />
+                                    <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endfor
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <script>
-        function removeAlert() {
-            const alert = document.getElementById("successAlert");
-            if (alert) alert.remove();
-        }
-
-        // Auto-remove after 10 seconds
-        setTimeout(removeAlert, 10000);
-    </script>
 `)
