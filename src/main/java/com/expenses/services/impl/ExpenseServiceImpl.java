@@ -49,6 +49,8 @@ public class ExpenseServiceImpl implements ExpenseService {
                 expense.getCategory().getDescription(),
                 expense.getDate(),
                 expense.getDescription(),
+                expense.getUrl(),
+                expense.getOrderNumber(),
                 expense.getQuantity(),
                 expense.getAmount(),
                 expense.getTotalAmount()

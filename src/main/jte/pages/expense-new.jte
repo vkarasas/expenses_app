@@ -54,6 +54,31 @@
                 />
             </div>
 
+            <!-- URL -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
+                <label class="text-sm font-medium text-gray-700">URL</label>
+                <input
+                        id="urlInput"
+                        type="url"
+                        name="url"
+                        class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
+               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+            </div>
+
+
+            <!-- Order Number -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
+                <label class="text-sm font-medium text-gray-700">Order Number</label>
+                <input
+                        id="orderNumberInput"
+                        type="text"
+                        name="orderNumber"
+                        class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
+               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+            </div>
+
             <!-- Quantity -->
             <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
                 <label class="text-sm font-medium text-gray-700">Quantity</label>

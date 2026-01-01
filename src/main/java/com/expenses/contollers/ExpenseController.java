@@ -56,6 +56,6 @@ public class ExpenseController {
                 "Expense deleted successfully!"
         );
 
-        return "pages/expenses";
+        return "redirect:/expenses";
     }
 }

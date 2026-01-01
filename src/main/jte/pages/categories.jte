@@ -64,7 +64,7 @@
         <!-- Categories Table -->
         <div class="flex justify-center mt-3 mb-4">
             <!-- Scroll + Border wrapper -->
-            <div class="max-h-[500px] overflow-y-auto w-11/12 border-2 border-gray-300 rounded-lg">
+            <div class="max-h-[400px] overflow-y-auto w-11/12 border-2 border-gray-300 rounded-lg">
                 <table class="w-full border-collapse">
                     <thead class="bg-gray-100 sticky top-0 z-10">
                     <tr>

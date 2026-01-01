@@ -1,0 +1,2 @@
+ALTER TABLE `expense` ADD COLUMN `url` VARCHAR(250) DEFAULT NULL COMMENT 'URL of the expense site' AFTER `description`;
+ALTER TABLE `expense` ADD COLUMN `order_number` VARCHAR(250) DEFAULT NULL COMMENT 'Order Number' AFTER `url`;

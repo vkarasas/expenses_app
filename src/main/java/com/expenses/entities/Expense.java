@@ -24,6 +24,12 @@ public class Expense {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "url")
+    private String url;
+
+    @Column(name = "order_number")
+    private String orderNumber;
+
     @Column(name = "quantity")
     private BigDecimal quantity;
 
@@ -65,6 +71,22 @@ public class Expense {
         this.description = description;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
     public BigDecimal getQuantity() {
         return quantity;
     }
@@ -96,6 +118,8 @@ public class Expense {
                 ", category=" + category +
                 ", date=" + date +
                 ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
+                ", orderNumber='" + orderNumber + '\'' +
                 ", quantity=" + quantity +
                 ", amount=" + amount +
                 ", totalAmount=" + totalAmount +

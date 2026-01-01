@@ -12,6 +12,8 @@ public record ExpenseDTO(
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         Date date,
         String description,
+        String url,
+        String orderNumber,
         BigDecimal quantity,
         BigDecimal amount,
         BigDecimal totalAmount
