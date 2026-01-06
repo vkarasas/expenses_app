@@ -1,6 +1,6 @@
-@param org.springframework.security.web.csrf.CsrfToken csrf
 @param java.util.List<com.expenses.dto.CategoryDTO> categories
 @param String successMessage
+@param com.expenses.util.CsrfHiddenInput csrfHiddenInput
 
 @template.layout.index(content = @`
     <div class="container">
@@ -18,13 +18,15 @@
                 @if(successMessage != null)
                     <div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
                         ${successMessage}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="removeAlert()"></button>
                     </div>
                 @endif
 
                 <!-- Add Category Form -->
                 <form method="post" action="/categories/save" class="row g-3 align-items-center">
-                    <input type="hidden" name="${csrf.getParameterName()}" value="${csrf.getToken()}" />
+                    ${csrfHiddenInput}
+<%--                    <input type="hidden" name="${csrf.getParameterName()}" value="${csrf.getToken()}" />--%>
+
                     <div class="col-md-8">
                         <label for="descriptionInput" class="form-label">Description</label>
                         <input
@@ -77,7 +79,7 @@
                                             onsubmit="return confirm('Delete this category?')"
                                             class="d-inline"
                                     >
-                                        <input type="hidden" name="${csrf.getParameterName()}" value="${csrf.getToken()}" />
+                                        ${csrfHiddenInput}
                                         <input type="hidden" name="id" value="${categories.get(i).id()}" />
                                         <button class="btn btn-sm btn-danger">
                                             Delete

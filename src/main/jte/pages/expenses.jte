@@ -1,6 +1,6 @@
 @param java.util.List<com.expenses.dto.ExpenseDTO> expenses
 @param String successMessage
-@param org.springframework.security.web.csrf.CsrfToken csrf
+@param com.expenses.util.CsrfHiddenInput csrfHiddenInput
 
 @template.layout.index(content = @`
     <div class="container mt-4">
@@ -22,7 +22,7 @@
                 @if(successMessage != null)
                     <div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
                         ${successMessage}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="removeAlert()"></button>
                     </div>
                 @endif
 
@@ -55,8 +55,8 @@
                                             action="/expenses/delete"
                                             onsubmit="return confirm('Delete this expense?')"
                                     >
+                                        ${csrfHiddenInput}
                                         <input type="hidden" name="id" value="${expenses.get(i).id()}" />
-                                        <input type="hidden" name="${csrf.getParameterName()}" value="${csrf.getToken()}" />
                                         <button class="btn btn-sm btn-danger">
                                             Delete
                                         </button>

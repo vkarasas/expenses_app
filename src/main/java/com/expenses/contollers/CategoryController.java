@@ -3,8 +3,6 @@ package com.expenses.contollers;
 import com.expenses.dto.CategoryDTO;
 import com.expenses.entities.Category;
 import com.expenses.services.CategoryService;
-import com.expenses.util.RequestAttributeUtil;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +21,8 @@ public class CategoryController {
     }
 
     @GetMapping
-    public String getExpenses(HttpServletRequest request, Model model) {
+    public String getExpenses(Model model) {
         model.addAttribute("categories", categoryService.getCategories());
-        model.addAttribute("csrf", RequestAttributeUtil.getCsrfToken(request));
         return "pages/categories";
     }
 
