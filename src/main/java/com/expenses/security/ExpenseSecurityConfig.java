@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,8 +27,17 @@ public class ExpenseSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) {
 
         http.authorizeHttpRequests(configurer ->
+
                         configurer
+                                .requestMatchers(
+                                        "/**/*.css",
+                                        "/**/*.js",
+                                        "/**/*.png",
+                                        "/**/*.jpg")
+                                .permitAll()
+
                                 .requestMatchers("/dashboard").hasRole("EMPLOYEE")
+                                .requestMatchers("/expenses/**").hasRole("MANAGER")
                                 .requestMatchers("/expense-new/**").hasRole("MANAGER")
                                 .requestMatchers("/categories/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()

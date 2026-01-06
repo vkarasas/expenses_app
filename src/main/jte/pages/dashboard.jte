@@ -5,22 +5,56 @@
 @param org.springframework.security.web.csrf.CsrfToken csrf
 
 @template.layout.index(content = @`
-    <div class="bg-white shadow rounded-lg p-6">
-        <h1 class="text-2xl font-bold mb-4">Welcome, ${username}!</h1>
-        <p>Today: ${currentDate}</p>
-        <p class="text-gray-600">This is your dashboard. Here you can view your recent activity and manage your account.</p>
-        <p class="text-gray-600">Current month expenses: ${currentMonthTotalAmount} €</p>
-        <p class="text-gray-600">Next month expenses: ${nextMonthTotalAmount} €</p>
+    <div class="container">
 
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
 
-        <form method="post" action="/logout">
-            <input type="hidden"
-                   name="${csrf.getParameterName()}"
-                   value="${csrf.getToken()}" />
+                <h3 class="card-title mb-3">
+                    Welcome, ${username}!
+                </h3>
 
-            <button type="submit">Logout</button>
-        </form>
+                <p class="mb-1">
+                    <strong>Today:</strong> ${currentDate}
+                </p>
+
+                <p class="text-muted mb-3">
+                    This is your dashboard. Here you can view your recent activity and manage your account.
+                </p>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="border rounded p-3 h-100">
+                            <h6 class="text-muted mb-1">Current Month Expenses</h6>
+                            <div class="fs-5 fw-semibold">
+                                ${currentMonthTotalAmount} €
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mt-3 mt-md-0">
+                        <div class="border rounded p-3 h-100">
+                            <h6 class="text-muted mb-1">Next Month Expenses</h6>
+                            <div class="fs-5 fw-semibold">
+                                ${nextMonthTotalAmount} €
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logout -->
+                <form method="post" action="/logout" class="text-end">
+                    <input type="hidden"
+                           name="${csrf.getParameterName()}"
+                           value="${csrf.getToken()}" />
+
+                    <button type="submit" class="btn btn-outline-danger">
+                        Logout
+                    </button>
+                </form>
+
+            </div>
+        </div>
 
     </div>
-
 `)

@@ -17,8 +17,12 @@ import java.time.format.FormatStyle;
 @Controller
 public class DashboardController {
 
+    private final ExpenseService expenseService;
+
     @Autowired
-    private ExpenseService expenseService;
+    public DashboardController(ExpenseService expenseService) {
+        this.expenseService = expenseService;
+    }
 
     @GetMapping(value = "/")
     public String home(HttpServletRequest request, Principal principal, Model model) {
