@@ -1,9 +1,9 @@
 package com.expenses.contollers;
 
 import com.expenses.services.ExpenseService;
+import com.expenses.util.RequestAttributeUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +27,7 @@ public class DashboardController {
     @GetMapping(value = "/")
     public String home(HttpServletRequest request, Principal principal, Model model) {
         model.addAttribute("username", principal.getName());
-        CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-        model.addAttribute("csrf", csrf);
+        model.addAttribute("csrf", RequestAttributeUtil.getCsrfToken(request));
         model.addAttribute(
                 "currentMonthTotalAmount",
                 expenseService

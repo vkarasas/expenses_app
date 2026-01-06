@@ -3,9 +3,9 @@ package com.expenses.contollers;
 import com.expenses.dto.CategoryDTO;
 import com.expenses.entities.Category;
 import com.expenses.services.CategoryService;
+import com.expenses.util.RequestAttributeUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +25,7 @@ public class CategoryController {
     @GetMapping
     public String getExpenses(HttpServletRequest request, Model model) {
         model.addAttribute("categories", categoryService.getCategories());
-        CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-        model.addAttribute("csrf", csrf);
+        model.addAttribute("csrf", RequestAttributeUtil.getCsrfToken(request));
         return "pages/categories";
     }
 

@@ -18,11 +18,15 @@ import java.util.List;
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
 
-    @Autowired
-    private ExpenseRepository expenseRepository;
+    private final ExpenseRepository expenseRepository;
+
+    private final CategoryService categoryService;
 
     @Autowired
-    private CategoryService categoryService;
+    public ExpenseServiceImpl(ExpenseRepository expenseRepository, CategoryService categoryService) {
+        this.expenseRepository = expenseRepository;
+        this.categoryService = categoryService;
+    }
 
     @Override
     public Expense saveExpense(ExpenseDTO expenseDTO) {

@@ -4,6 +4,8 @@ import com.expenses.dto.ExpenseDTO;
 import com.expenses.entities.Expense;
 import com.expenses.services.CategoryService;
 import com.expenses.services.ExpenseService;
+import com.expenses.util.RequestAttributeUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,15 +16,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/expenses")
 public class ExpenseController {
 
-    @Autowired
-    private ExpenseService expenseService;
+    private final ExpenseService expenseService;
+    private final CategoryService categoryService;
 
     @Autowired
-    private CategoryService categoryService;
+    public ExpenseController(ExpenseService expenseService, CategoryService categoryService) {
+        this.expenseService = expenseService;
+        this.categoryService = categoryService;
+    }
 
+    @SuppressWarnings("SpringMVCViewInspection")
     @GetMapping
-    public String getExpenses(Model model) {
+    public String getExpenses(HttpServletRequest request, Model model) {
         model.addAttribute("expenses", expenseService.getExpenses());
+        model.addAttribute("csrf", RequestAttributeUtil.getCsrfToken(request));
 
         return "pages/expenses";
     }
@@ -42,8 +49,9 @@ public class ExpenseController {
     }
 
     @GetMapping(value = "/new")
-    public String newExpense(Model model) {
+    public String newExpense(HttpServletRequest request, Model model) {
         model.addAttribute("categories", categoryService.getCategories());
+        model.addAttribute("csrf", RequestAttributeUtil.getCsrfToken(request));
         return "pages/expense-new";
     }
 
