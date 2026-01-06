@@ -6,7 +6,7 @@
                     Access Denied - You are not authorized to access this resource.
                 </h2>
 
-                <a href="/">Back to Dashboard Page</a>
+                <a href="/dashboard">Back to Dashboard Page</a>
             </div>
         </div>
     </div>

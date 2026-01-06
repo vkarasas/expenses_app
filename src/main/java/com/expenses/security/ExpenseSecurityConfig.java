@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 
 @Configuration
 public class ExpenseSecurityConfig {
@@ -34,9 +35,9 @@ public class ExpenseSecurityConfig {
                                         "/**/*.jpg")
                                 .permitAll()
 
-                                .requestMatchers("/dashboard").hasRole("EMPLOYEE")
-                                .requestMatchers("/expenses/**").hasRole("MANAGER")
-                                .requestMatchers("/expense-new/**").hasRole("MANAGER")
+                                .requestMatchers("/dashboard").hasAnyRole("EMPLOYEE", "MANAGER", "ADMIN")
+                                .requestMatchers("/expenses/**").hasAnyRole("MANAGER", "ADMIN")
+                                .requestMatchers("/expense-new/**").hasAnyRole("MANAGER", "ADMIN")
                                 .requestMatchers("/categories/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
@@ -45,6 +46,10 @@ public class ExpenseSecurityConfig {
                                 .loginPage("/login")
                                 .loginProcessingUrl("/dashboard")
                                 .permitAll()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/dashboard", true)
                 )
                 .logout(LogoutConfigurer::permitAll)
                 .exceptionHandling(configurer ->
