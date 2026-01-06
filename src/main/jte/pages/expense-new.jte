@@ -1,138 +1,155 @@
 @param java.util.List<com.expenses.dto.CategoryDTO> categories
+@param com.expenses.util.CsrfHiddenInput csrfHiddenInput
 
 @template.layout.index(content = @`
-    <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-md border border-gray-200">
-        <!-- Panel Header -->
-        <div class="px-6 py-4 border-b border-gray-200">
-            <h2 class="text-lg font-semibold text-gray-800">
-                New Expense
-            </h2>
+    <div class="container">
+        <div class="card shadow-sm">
+            <!-- Panel Header -->
+            <div class="card-header bg-white">
+                <h2 class="h5 mb-0 fw-semibold text-dark">
+                    New Expense
+                </h2>
+            </div>
+            <!-- Add Expense Form -->
+            <form method="post" action="/expenses/save" class="card-body">
+                ${csrfHiddenInput}
+                <%-- Category  --%>
+                <div class="row mb-3 align-items-center">
+                    <label for="categoryInput" class="col-sm-3 col-form-label fw-medium">
+                        Category
+                    </label>
+                    <div class="col-sm-9">
+                        <select id="categoryInput"
+                                name="categoryId"
+                                class="form-select"
+                        >
+                            <option value="">Select category</option>
+
+                            @for (com.expenses.dto.CategoryDTO category : categories)
+                                <option value="${category.id()}">
+                                    ${category.description()}
+                                </option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Date -->
+                <div class="row mb-3 align-items-center">
+                    <label for="dateInput" class="col-sm-3 col-form-label fw-medium">
+                        Date
+                    </label>
+                    <div class="col-sm-9">
+                        <input id="dateInput"
+                                type="date"
+                                name="date"
+                                class="form-control"
+                        />
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="row mb-3 align-items-center">
+                    <label for="descriptionInput" class="col-sm-3 col-form-label fw-medium">Description</label>
+                    <div class="col-sm-9">
+                        <input
+                                id="descriptionInput"
+                                type="text"
+                                name="description"
+                                required
+                                class="form-control"
+                        />
+                    </div>
+                </div>
+
+                <!-- URL -->
+                <div class="row mb-3 align-items-center">
+                    <label for="urlInput" class="col-sm-3 col-form-label fw-medium">URL</label>
+                    <div class="col-sm-9">
+                        <input
+                                id="urlInput"
+                                type="url"
+                                name="url"
+                                class="form-control"
+                        />
+                    </div>
+                </div>
+
+                <!-- Order Number -->
+                <div class="row mb-3 align-items-center">
+                    <label for="orderNumberInput" class="col-sm-3 col-form-label fw-medium">Order Number</label>
+                    <div class="col-sm-9">
+                        <input
+                                id="orderNumberInput"
+                                type="text"
+                                name="orderNumber"
+                                class="form-control"
+                        />
+                    </div>
+                </div>
+
+                <!-- Quantity -->
+                <div class="row mb-3 align-items-center">
+                    <label for="quantityInput" class="col-sm-3 col-form-label fw-medium">Quantity</label>
+                    <div class="col-sm-9">
+                        <input
+                                id="quantityInput"
+                                type="number"
+                                oninput="onInput()"
+                                name="quantity"
+                                step="1"
+                                required
+                                class="form-control"
+                        />
+                    </div>
+                </div>
+
+                <!-- Amount -->
+                <div class="row mb-3 align-items-center">
+                    <label for="amountInput" class="col-sm-3 col-form-label fw-medium">Amount</label>
+                    <div class="col-sm-9">
+                        <input
+                                id="amountInput"
+                                type="number"
+                                oninput="onInput()"
+                                name="amount"
+                                step="0.01"
+                                required
+                                class="form-control"
+                        />
+                    </div>
+                </div>
+
+                <!-- Total -->
+                <div class="row mb-3 align-items-center">
+                    <label for="totalAmountInput" class="col-sm-3 col-form-label fw-medium">Total Amount</label>
+                    <div class="col-sm-9">
+                        <input
+                                id="totalAmountInput"
+                                type="number"
+                                name="totalAmount"
+                                step="0.01"
+                                required
+                                class="form-control"
+                        />
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="row">
+                    <div class="col-12">
+                        <hr class="mb-3">
+                        <div class="d-flex justify-content-end gap-2">
+                            <button
+                                    type="submit"
+                                    class="btn btn-success"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <!-- Add Expense Form -->
-        <form method="post" action="/expenses/save" onsubmit="save" class="p-6 space-y-5">
-            <%-- Category  --%>
-            <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Category
-                </label>
-                <select
-                        name="categoryId"
-                        class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
-               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                    <option value="">Select category</option>
-
-                    @for (com.expenses.dto.CategoryDTO category : categories)
-                        <option value="${category.id()}">
-                            ${category.description()}
-                        </option>
-                    @endfor
-                </select>
-            </div>
-            <!-- Date -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-                <label class="text-sm font-medium text-gray-700">
-                    Date
-                </label>
-                <input
-                        type="date"
-                        name="date"
-                        class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
-               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-            </div>
-            <!-- Description -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-                <label class="text-sm font-medium text-gray-700">Description</label>
-                <input
-                        id="descriptionInput"
-                        type="text"
-                        name="description"
-                        required
-                        class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
-               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-            </div>
-
-            <!-- URL -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-                <label class="text-sm font-medium text-gray-700">URL</label>
-                <input
-                        id="urlInput"
-                        type="url"
-                        name="url"
-                        class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
-               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-            </div>
-
-
-            <!-- Order Number -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-                <label class="text-sm font-medium text-gray-700">Order Number</label>
-                <input
-                        id="orderNumberInput"
-                        type="text"
-                        name="orderNumber"
-                        class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
-               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-            </div>
-
-            <!-- Quantity -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-                <label class="text-sm font-medium text-gray-700">Quantity</label>
-                <input
-                        id="quantityInput"
-                        type="number"
-                        oninput="onInput()"
-                        name="quantity"
-                        step="1"
-                        required
-                        class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
-               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-            </div>
-
-            <!-- Amount -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-                <label class="text-sm font-medium text-gray-700">Amount</label>
-                <input
-                        id="amountInput"
-                        type="number"
-                        oninput="onInput()"
-                        name="amount"
-                        step="0.01"
-                        required
-                        class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
-               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-            </div>
-
-            <!-- Total -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-                <label class="text-sm font-medium text-gray-700">Total Amount</label>
-                <input
-                        id="totalAmountInput"
-                        type="number"
-                        name="totalAmount"
-                        step="0.01"
-                        required
-                        class="sm:col-span-2 rounded-lg border border-gray-300 px-3 py-2 text-sm
-               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-            </div>
-
-
-            <!-- Actions -->
-            <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">
-                <button
-                        type="submit"
-                        class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
-                >
-                    Save
-                </button>
-            </div>
-        </form>
     </div>
 `)

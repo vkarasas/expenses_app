@@ -25,7 +25,6 @@
                 <!-- Add Category Form -->
                 <form method="post" action="/categories/save" class="row g-3 align-items-center">
                     ${csrfHiddenInput}
-<%--                    <input type="hidden" name="${csrf.getParameterName()}" value="${csrf.getToken()}" />--%>
 
                     <div class="col-md-8">
                         <label for="descriptionInput" class="form-label">Description</label>
