@@ -26,14 +26,16 @@ public class DashboardController {
     public String home(Principal principal, Model model) {
         model.addAttribute("username", principal.getName());
         model.addAttribute(
+                "previousMonthTotalAmount",
+                expenseService.getTotalAmountOfPreviousMonth()
+                        .setScale(2, RoundingMode.HALF_UP));
+        model.addAttribute(
                 "currentMonthTotalAmount",
-                expenseService
-                        .getTotalAmountOfCurrentMonth()
+                expenseService.getTotalAmountOfCurrentMonth()
                         .setScale(2, RoundingMode.HALF_UP));
         model.addAttribute(
                 "nextMonthTotalAmount",
-                expenseService
-                        .getTotalAmountOfNextMonth()
+                expenseService.getTotalAmountOfNextMonth()
                         .setScale(2, RoundingMode.HALF_UP));
         model.addAttribute(
                 "currentDate",

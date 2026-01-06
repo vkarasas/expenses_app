@@ -21,4 +21,6 @@ public interface ExpenseService {
     BigDecimal getTotalAmountOfCurrentMonth();
 
     BigDecimal getTotalAmountOfNextMonth();
+
+    BigDecimal getTotalAmountOfPreviousMonth();
 }
