@@ -24,7 +24,7 @@ public class DashboardController {
         this.expenseService = expenseService;
     }
 
-    @GetMapping(value = "/dashboard")
+    @GetMapping(value = {"/dashboard", "/"})
     public String home(Authentication authentication, Model model) {
 
         if (authentication.getPrincipal() instanceof UserDetails userDetails) {
