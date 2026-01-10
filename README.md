@@ -56,7 +56,7 @@ spring.datasource.password=${DATASOURCE_PASSWORD}
     - Set Authorized redirect URI: `http://localhost:8080/login/oauth2/code/google`
     - Copy Client ID and Client Secret
 
-4. Add OAuth2 configuration to `application.properties`:
+2. Add OAuth2 configuration to `application.properties`:
 ```properties
 # GitHub OAuth2
 # Google OAuth2
