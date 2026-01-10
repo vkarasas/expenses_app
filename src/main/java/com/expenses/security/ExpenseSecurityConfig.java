@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 
 @Configuration
 public class ExpenseSecurityConfig {
@@ -35,10 +34,10 @@ public class ExpenseSecurityConfig {
                                         "/**/*.jpg")
                                 .permitAll()
 
-                                .requestMatchers("/dashboard").hasAnyRole("EMPLOYEE", "MANAGER", "ADMIN")
-                                .requestMatchers("/expenses/**").hasAnyRole("MANAGER", "ADMIN")
-                                .requestMatchers("/expense-new/**").hasAnyRole("MANAGER", "ADMIN")
-                                .requestMatchers("/categories/**").hasRole("ADMIN")
+                                .requestMatchers("/dashboard").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/expenses/**").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/expense-new/**").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/categories/**").hasAnyRole("USER", "ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form ->
