@@ -82,4 +82,54 @@ mvn spring-boot:run
 7. Open your browser and navigate to:
 http://localhost:8080
 
+### Creating Users (Database Authentication)
 
+Users can be added directly to the database with BCrypt-hashed passwords. The application uses the following schema:
+
+**User Table:**
+- `id` (Primary Key)
+- `username` (Unique)
+- `password` (BCrypt hashed)
+- `enabled` (Boolean)
+
+**Role Table:**
+- `id` (Primary Key)
+- `name` (e.g., ROLE_USER, ROLE_ADMIN)
+
+**User_Role Table:**
+- `id` (Primary Key)
+- `user_id` (Foreign Key)
+- `role_id` (Foreign Key)
+
+You can add users via:
+- Direct SQL insertion with BCrypt-hashed passwords
+
+**Example SQL for adding a user:**
+```sql
+-- Password is 'fun123' hashed with BCrypt
+INSERT INTO user (username, password, enabled)
+VALUES ('john', '$2a$04$eFytJDGtjbThXa80FyOOBuFdK2IwjyWefYkMpiBEFlpBwDH.5PM0K', true);
+
+INSERT INTO role (name) VALUES ('ROLE_USER');
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (
+    (SELECT id FROM user WHERE username = 'john'),
+    (SELECT id FROM role WHERE name = 'ROLE_USER')
+);
+```
+
+## Usage
+
+### Login Options
+
+**Option 1: Username/Password Login**
+1. Navigate to `http://localhost:8080/login`
+2. Enter your username and password
+3. Access your expense dashboard
+
+**Option 2: OAuth2 Social Login**
+1. Navigate to `http://localhost:8080/login`
+2. Choose to login with GitHub or Google
+3. Authorize the application
+4. You'll be redirected to your expense dashboard
