@@ -5,6 +5,8 @@ import com.expenses.entities.Expense;
 import com.expenses.repositories.ExpenseRepository;
 import com.expenses.services.CategoryService;
 import com.expenses.services.ExpenseService;
+import com.expenses.services.UserService;
+import com.expenses.util.AuthUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +24,15 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     private final CategoryService categoryService;
 
+    private final UserService userService;
+
     @Autowired
-    public ExpenseServiceImpl(ExpenseRepository expenseRepository, CategoryService categoryService) {
+    public ExpenseServiceImpl(ExpenseRepository expenseRepository,
+                              CategoryService categoryService,
+                              UserService userService) {
         this.expenseRepository = expenseRepository;
         this.categoryService = categoryService;
+        this.userService = userService;
     }
 
     @Override
@@ -41,6 +48,8 @@ public class ExpenseServiceImpl implements ExpenseService {
         BeanUtils.copyProperties(expenseDTO, expense);
 
         expense.setCategory(categoryService.getById(expenseDTO.categoryId()));
+
+        expense.setUser(userService.findByUsername(AuthUtil.getAuthUsername()));
 
         return expense;
     }

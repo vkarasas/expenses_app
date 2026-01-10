@@ -18,6 +18,10 @@ public class Expense {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(name = "date")
     private Date date;
 
@@ -53,6 +57,14 @@ public class Expense {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getDate() {
@@ -116,6 +128,7 @@ public class Expense {
         return "Expense{" +
                 "id=" + id +
                 ", category=" + category +
+                ", user=" + user +
                 ", date=" + date +
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
