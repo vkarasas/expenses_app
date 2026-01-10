@@ -1,49 +1,85 @@
+> [!WARNING]
+> This project is under construction and is only for educational purposes.
+
+# Expense App
+#### A simple expense application built with Spring Boot, JPA and JTE(Java Template Engine)
+
+## Features
+- Secure authentication with OAuth2(GitHub & Google)
+- Personal Expenses
+- Categorize Expenses
+
+## Tech Stack
+- **Spring Boot 4** - Application framework
+- **Spring Security** - Authentication and authorization
+- **Spring Data JPA** - Data persistence layer
+- **OAuth2** - Social Login(GitHub, Google)
+- **JTE (Java Template Engine)** - Server-side templating
+- **H2/PostgreSQL/MySQL** - Database (specify your choice)
+- **Maven** - Build tool
+
+## Prerequisites
+- JDK 25
+- Database (if not using H2)
+
 # Getting Started
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### Installation
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/4.0.0/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/4.0.0/maven-plugin/build-image.html)
-* [Spring Web](https://docs.spring.io/spring-boot/4.0.0/reference/web/servlet.html)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/4.0.0/reference/using/devtools.html)
-* [JTE](https://jte.gg/)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/4.0.0/reference/data/sql.html#data.sql.jpa-and-spring-data)
-
-### Guides
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-
-## JTE
-
-This project has been configured to use [JTE precompiled templates](https://jte.gg/pre-compiling/).
-
-However, to ease development, those are not enabled out of the box.
-For production deployments, you should remove
-
-```properties
-gg.jte.development-mode=true
+1. Clone the repository:
+```bash
+git clone https://github.com/vkarasas/expenses_app.git
+cd expense_app
 ```
 
-from the `application.properties` file and set
-
+2. Configure the database in `application.properties`:
 ```properties
-gg.jte.use-precompiled-templates=true
+spring.datasource.driver-class-name=${DATASOURCE_DRIVER_CLASS_NAME}
+spring.datasource.url=${DATASOURCE_URL_HOST}
+spring.datasource.username=${DATASOURCE_USERNAME}
+spring.datasource.password=${DATASOURCE_PASSWORD}
 ```
 
-instead.
-For more details, please take a look at [the official documentation](https://jte.gg/spring-boot-starter-3/).
+3. Set up OAuth2 credentials:
 
-### Maven Parent overrides
+   **GitHub OAuth App:**
+    - Go to GitHub Settings → Developer settings → OAuth Apps → New OAuth App
+    - Set Authorization callback URL: `http://localhost:8080/login/oauth2/code/github`
+    - Copy Client ID and Client Secret
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+   **Google OAuth App:**
+    - Go to [Google Cloud Console](https://console.cloud.google.com/)
+    - Create a new project or select existing
+    - Enable Google+ API
+    - Create OAuth 2.0 credentials
+    - Set Authorized redirect URI: `http://localhost:8080/login/oauth2/code/google`
+    - Copy Client ID and Client Secret
+
+4. Add OAuth2 configuration to `application.properties`:
+```properties
+# GitHub OAuth2
+# Google OAuth2
+spring.security.oauth2.client.registration.google.client-id=${GOOGLE_CLIENT_ID}
+spring.security.oauth2.client.registration.google.client-secret=${GOOGLE_CLIENT_SECRET}
+
+# Google OAuth2
+spring.security.oauth2.client.registration.github.client-id=${GITHUB_CLIENT_ID}
+spring.security.oauth2.client.registration.github.client-secret=${GITHUB_CLIENT_SECRET}
+```
+
+5. Build the project:
+```bash
+# Maven
+mvn clean install
+```
+
+6. Run the application:
+```bash
+# Maven
+mvn spring-boot:run
+```
+
+7. Open your browser and navigate to:
+http://localhost:8080
+
 
