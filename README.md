@@ -102,7 +102,7 @@ Users can be added directly to the database with BCrypt-hashed passwords. The ap
 - `user_id` (Foreign Key)
 - `role_id` (Foreign Key)
 
-> [!INFO]
+> [!NOTE]
 > The below example to insert user is on migration files already.
 
 You can add users via:
