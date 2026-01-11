@@ -72,7 +72,8 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public List<ExpenseDTO> getExpenses() {
-        List<Expense> expenseList = expenseRepository.findAll();
+        Long userId = userService.userId();
+        List<Expense> expenseList = expenseRepository.findAllByUserId(userId);
         List<ExpenseDTO> expenseDTOList = new ArrayList<>();
         for(Expense expense: expenseList) {
             expenseDTOList.add(toDTO(expense));
@@ -137,6 +138,8 @@ public class ExpenseServiceImpl implements ExpenseService {
         cal.add(Calendar.MILLISECOND, -1);
         Date endDate = cal.getTime();
 
-        return expenseRepository.sumTotalAmountBetweenDates(startDate, endDate);
+
+        Long userId = userService.userId();
+        return expenseRepository.sumTotalAmountBetweenDates(startDate, endDate, userId);
     }
 }

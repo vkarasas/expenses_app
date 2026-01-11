@@ -5,6 +5,7 @@ import com.expenses.entities.Role;
 import com.expenses.entities.User;
 import com.expenses.repositories.UserRepository;
 import com.expenses.services.UserService;
+import com.expenses.util.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,6 +32,12 @@ public class UserServiceImpl implements UserService {
         if(StringUtil.isNullOrEmpty(username)) return null;
 
         return userRepository.findUserByUsernameAndEnabled(username, Boolean.TRUE);
+    }
+
+    @Override
+    public Long userId() {
+        User user = userRepository.findUserByUsernameAndEnabled(AuthUtil.getAuthUsername(), Boolean.TRUE);
+        return user.getId();
     }
 
     @SuppressWarnings("NullableProblems")
