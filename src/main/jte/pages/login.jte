@@ -24,7 +24,7 @@
                                 <!-- Check for login error -->
                                 @if(error != null)
                                     <div class="alert alert-danger col-xs-offset-1 col-xs-10">
-                                        Invalid username and password.
+                                        Invalid User's Credentials.
                                     </div>
                                 @endif
 
