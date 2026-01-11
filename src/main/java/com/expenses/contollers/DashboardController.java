@@ -22,8 +22,8 @@ public class DashboardController {
         this.expenseService = expenseService;
     }
 
-    @GetMapping(value = {"/dashboard", "/"})
-    public String home(Model model) {
+    @GetMapping(value = "/dashboard")
+    public String dashboard(Model model) {
         model.addAttribute("username", AuthUtil.getAuthUsername());
 
         model.addAttribute(

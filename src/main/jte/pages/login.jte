@@ -12,7 +12,7 @@
             </div>
 
             <div class="card-body">
-                <form method="post" action="/dashboard">
+                <form method="post" action="/authenticate">
                     <!-- CSRF Token -->
                     <input type="hidden"
                            name="${csrf.getParameterName()}"

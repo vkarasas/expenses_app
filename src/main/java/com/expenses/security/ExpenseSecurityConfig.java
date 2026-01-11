@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -23,34 +22,42 @@ public class ExpenseSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) {
+    public SecurityFilterChain filterChain(HttpSecurity http, DaoAuthenticationProvider authenticationProvider) {
 
-        http.authorizeHttpRequests(configurer ->
-                        configurer
-                                .requestMatchers(
-                                        "/**/*.css",
-                                        "/**/*.js",
-                                        "/**/*.png",
-                                        "/**/*.jpg")
-                                .permitAll()
+        http
+                .authenticationProvider(authenticationProvider)
+                .authorizeHttpRequests(configurer -> configurer
+                        .requestMatchers(
+                            "/",
+                            "/login",
+                            "/**/*.css",
+                            "/**/*.js",
+                            "/**/*.png",
+                            "/**/*.jpg"
+                        )
+                        .permitAll()
 
-                                .requestMatchers("/dashboard").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/expenses/**").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/expense-new/**").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/categories/**").hasAnyRole("USER", "ADMIN")
-                                .anyRequest().authenticated()
+
+                        .requestMatchers("/dashboard/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/expenses/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/expense-new/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/categories/**").hasAnyRole("USER", "ADMIN")
+                        .anyRequest().authenticated()
                 )
-                .formLogin(form ->
-                        form
-                                .loginPage("/login")
-                                .loginProcessingUrl("/dashboard")
-                                .permitAll()
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/authenticate")
+                        .defaultSuccessUrl("/dashboard", true)
+                        .permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
                         .defaultSuccessUrl("/dashboard", true)
                 )
-                .logout(LogoutConfigurer::permitAll)
+                .logout(logout -> logout
+                        .permitAll()
+                        .logoutSuccessUrl("/")
+                )
                 .exceptionHandling(configurer ->
                         configurer.accessDeniedPage("/access-denied")
                 );
