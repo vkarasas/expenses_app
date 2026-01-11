@@ -19,6 +19,15 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "sub_id")
+    private String subId;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "provider")
+    private String provider;
+
     @Column(name = "enabled")
     private Boolean enabled;
 
@@ -53,6 +62,30 @@ public class User {
         this.password = password;
     }
 
+    public String getSubId() {
+        return subId;
+    }
+
+    public void setSubId(String subId) {
+        this.subId = subId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
     public Boolean getEnabled() {
         return enabled;
     }
@@ -75,6 +108,9 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", subId='" + subId + '\'' +
+                ", email='" + email + '\'' +
+                ", provider='" + provider + '\'' +
                 ", enabled=" + enabled +
                 ", roles=" + roles +
                 '}';

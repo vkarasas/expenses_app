@@ -1,6 +1,7 @@
 package com.expenses.security;
 
 import com.expenses.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -10,6 +11,13 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class ExpenseSecurityConfig {
+
+    private final CustomOAuth2UserService customOAuth2UserService;
+
+    @Autowired
+    public ExpenseSecurityConfig(CustomOAuth2UserService customOAuth2UserService) {
+        this.customOAuth2UserService = customOAuth2UserService;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {return new BCryptPasswordEncoder();}
@@ -52,6 +60,9 @@ public class ExpenseSecurityConfig {
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
                         .defaultSuccessUrl("/dashboard", true)
                 )
                 .logout(logout -> logout
